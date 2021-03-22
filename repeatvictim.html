@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>People (suspects with repeat victim)</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 800px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "dodgerblue", "id": "MobleyLyle", "label": "MobleyLyle", "shape": "dot"}, {"color": "dodgerblue", "id": "ParkerByron", "label": "ParkerByron", "shape": "dot"}, {"color": "dodgerblue", "id": "BosticDan", "label": "BosticDan", "shape": "dot"}, {"color": "dodgerblue", "id": "SamuelLyle", "label": "SamuelLyle", "shape": "dot"}, {"color": "teal", "id": "JacksonBrendan", "label": "JacksonBrendan", "shape": "dot"}, {"color": "dodgerblue", "id": "MitchellGrant", "label": "MitchellGrant", "shape": "dot"}, {"color": "teal", "id": "CantwellFelecia", "label": "CantwellFelecia", "shape": "dot"}, {"color": "dodgerblue", "id": "AlexanderNolan", "label": "AlexanderNolan", "shape": "dot"}, {"color": "dodgerblue", "id": "OwensAndrew", "label": "OwensAndrew", "shape": "dot"}, {"color": "teal", "id": "WillisJenny", "label": "WillisJenny", "shape": "dot"}, {"color": "dodgerblue", "id": "SandersonStuart", "label": "SandersonStuart", "shape": "dot"}, {"color": "dodgerblue", "id": "SimmsPorter", "label": "SimmsPorter", "shape": "dot"}, {"color": "dodgerblue", "id": "ThompsonAndy", "label": "ThompsonAndy", "shape": "dot"}, {"color": "dodgerblue", "id": "JonesHarris", "label": "JonesHarris", "shape": "dot"}, {"color": "dodgerblue", "id": "JeffersonArnold", "label": "JeffersonArnold", "shape": "dot"}, {"color": "dodgerblue", "id": "BurnleyAaron", "label": "BurnleyAaron", "shape": "dot"}, {"color": "dodgerblue", "id": "ReedKelvin", "label": "ReedKelvin", "shape": "dot"}, {"color": "dodgerblue", "id": "HemphillBud", "label": "HemphillBud", "shape": "dot"}, {"color": "dodgerblue", "id": "SwiftMaurice", "label": "SwiftMaurice", "shape": "dot"}, {"color": "dodgerblue", "id": "TroutBernard", "label": "TroutBernard", "shape": "dot"}, {"color": "teal", "id": "BlackRuth", "label": "BlackRuth", "shape": "dot"}, {"color": "dodgerblue", "id": "ConorArthur", "label": "ConorArthur", "shape": "dot"}, {"color": "teal", "id": "ChandlerSusie", "label": "ChandlerSusie", "shape": "dot"}, {"color": "dodgerblue", "id": "WethersMorrie", "label": "WethersMorrie", "shape": "dot"}, {"color": "dodgerblue", "id": "ToomeyMartin", "label": "ToomeyMartin", "shape": "dot"}, {"color": "dodgerblue", "id": "AndersonMitch", "label": "AndersonMitch", "shape": "dot"}, {"color": "dodgerblue", "id": "McCannEddie", "label": "McCannEddie", "shape": "dot"}, {"color": "teal", "id": "SmithVictoria", "label": "SmithVictoria", "shape": "dot"}, {"color": "dodgerblue", "id": "HarriganKieran", "label": "HarriganKieran", "shape": "dot"}, {"color": "dodgerblue", "id": "AbramsChad", "label": "AbramsChad", "shape": "dot"}, {"color": "dodgerblue", "id": "AveryTerry", "label": "AveryTerry", "shape": "dot"}, {"color": "teal", "id": "BerkleyCallie", "label": "BerkleyCallie", "shape": "dot"}]);
+        edges = new vis.DataSet([{"arrows": "to", "from": "MobleyLyle", "to": "ParkerByron", "value": 2}, {"arrows": "to", "from": "BosticDan", "to": "SamuelLyle", "value": 4}, {"arrows": "to", "from": "JacksonBrendan", "to": "MitchellGrant", "value": 2}, {"arrows": "to", "from": "MitchellGrant", "to": "CantwellFelecia", "value": 4}, {"arrows": "to", "from": "AlexanderNolan", "to": "OwensAndrew", "value": 2}, {"arrows": "to", "from": "WillisJenny", "to": "SandersonStuart", "value": 2}, {"arrows": "to", "from": "SimmsPorter", "to": "ThompsonAndy", "value": 2}, {"arrows": "to", "from": "JonesHarris", "to": "JeffersonArnold", "value": 2}, {"arrows": "to", "from": "BurnleyAaron", "to": "ReedKelvin", "value": 2}, {"arrows": "to", "from": "HemphillBud", "to": "SwiftMaurice", "value": 2}, {"arrows": "to", "from": "TroutBernard", "to": "BlackRuth", "value": 5}, {"arrows": "to", "from": "ConorArthur", "to": "ChandlerSusie", "value": 2}, {"arrows": "to", "from": "WethersMorrie", "to": "ToomeyMartin", "value": 2}, {"arrows": "to", "from": "AndersonMitch", "to": "McCannEddie", "value": 3}, {"arrows": "to", "from": "SmithVictoria", "to": "HarriganKieran", "value": 3}, {"arrows": "to", "from": "AbramsChad", "to": "AveryTerry", "value": 2}, {"arrows": "to", "from": "AbramsChad", "to": "BerkleyCallie", "value": 3}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
